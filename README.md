@@ -35,4 +35,4 @@ end
 ### credits
 - [test images](https://pipoya.itch.io/pipoya-free-rpg-character-sprites-nekonin)
 - [article about binary packing](https://codeincomplete.com/articles/bin-packing/)
-- [cripboy](github.com/cripboy)
+- [cripboy](https://github.com/cripboy)
