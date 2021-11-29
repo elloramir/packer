@@ -1,10 +1,10 @@
 ## explanation and methods
 - packer have a method called sort that can be overrided, but i recomend to keep it default (max side)
-- after genAtlas exec, packer.atlas will be type: canvas
+- after genAtlas exec, packer.atlas will be a canvas
 
 | function | param | return | 
 |--|--|--|
-| add | tag: **string**, image: **Image** | 
+| add | image: **Image**, tag: **string** (optional) | 
 | genAtlas |  |  |
 | getRect | tag: **string** | x: **int**, y: **int**, w: **int**, h: **int** |
 | getQuad | tag: **string** | quad: **Quad** |
@@ -20,7 +20,7 @@ function love.load()
 	for _, file in ipairs(files) do
 		local fileName = "test_images/" .. file
 
-		packer:add(love.graphics.newImage(fileName), fileName)
+		packer:add(love.graphics.newImage(fileName))
 	end
 
 	packer:genAtlas()
