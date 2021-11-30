@@ -50,7 +50,6 @@ local function splitNode(node, w, h)
 	node.used = true
 	node.right = newNode(node.x + w, node.y, node.w - w, h)
 	node.down =  newNode(node.x, node.y + h, node.w, node.h - h)
-	return node
 end
 
 -- wrap the old node in a new one
@@ -102,7 +101,7 @@ function packer:genAtlas()
 
 	-- put blocks into the initialNode and future nodes
 	for _, block in ipairs(self.blocks) do
-		-- try to find nearest node
+		-- try to find nearest not used node
 		local node = findNode(initialNode, block.w, block.h)
 
 		-- need to growup
@@ -111,9 +110,9 @@ function packer:genAtlas()
 			node = findNode(initialNode, block.w, block.h)
 		end
 
-		local fitNode = splitNode(node, block.w, block.h)
-		block.x = fitNode.x
-		block.y = fitNode.y
+		splitNode(node, block.w, block.h)
+		block.x = node.x
+		block.y = node.y
 	end
 
 	-- make the atlas
@@ -138,8 +137,7 @@ function packer:getRect(tag)
 	return block.x, block.y, block.w, block.h
 end
 
--- to save some memory/time processing, we don't need generate
--- all quads at same time
+-- we don't need generate all quads at same time
 function packer:getQuad(tag)
 	local block = self:getBlock(tag)
 
@@ -161,8 +159,8 @@ function packer:serialize()
 	local content = "return {\n"
 
 	for key, block in pairs(self.dictionary) do
-		content = content ..  '  ["' .. key .. '"]' .. " = {"
-		content = content ..  "x = " .. block.x .. ","
+		content = content .. '  ["' .. key .. '"]' .. " = {"
+		content = content .. "x = " .. block.x .. ","
 		content = content .. " y = " .. block.y .. ","
 		content = content .. " w = " .. block.w .. ","
 		content = content .. " h = " .. block.h .. "},\n"
