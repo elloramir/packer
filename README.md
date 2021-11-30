@@ -23,11 +23,12 @@ function love.load()
 	for _, file in ipairs(files) do
 		local fileName = "test_images/" .. file
 
-		packer:add(love.graphics.newImage(fileName))
+		packer:add(love.graphics.newImage(fileName), fileName)
 	end
 
 	packer:genAtlas()
 	packer:saveAtlas("atlas.png")
+	packer:saveSerial("serial.lua")
 end
 
 function love.draw()
