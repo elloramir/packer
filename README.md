@@ -1,7 +1,7 @@
 ## explanation and methods
-- packer have a method called sort that can be overrided, but i recomend to keep it default (max side)
+- packer have a method called sort that can be overrided, but i recommend to keep as default (max side)
 - after genAtlas exec, packer.atlas will be a canvas
-- save functions use lua io.open as default, if is necessary to change it, you can replace these functions
+- save methods use lua io.open as default, if are necessary to change it, you can replace these functions
 
 | function | param | return | 
 |--|--|--|
