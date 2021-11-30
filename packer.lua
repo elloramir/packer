@@ -178,22 +178,22 @@ function packer:saveAtlas(dir)
 		local imgData = self.atlas:newImageData()
 		local fileData = imgData:encode("png")
 
-        imageFile:write(fileData:getString())
-        imageFile:close()
-    end
+		imageFile:write(fileData:getString())
+		imageFile:close()
+	end
 
-    return err
+	return err
 end
 
 function packer:saveSerial(dir)
 	local serialFile, err = io.open(dir, "w")
 
 	if serialFile then
-        serialFile:write(self:serialize())
-        serialFile:close()
-    end
+		serialFile:write(self:serialize())
+		serialFile:close()
+	end
 
-    return err
+	return err
 end
 
 return packer
