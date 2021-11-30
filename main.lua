@@ -11,6 +11,7 @@ function love.load()
 
 	packer:genAtlas()
 	packer:saveAtlas("atlas.png")
+	packer:saveSerial("serial.lua")
 end
 
 function love.draw()

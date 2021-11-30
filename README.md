@@ -1,6 +1,7 @@
 ## explanation and methods
 - packer have a method called sort that can be overrided, but i recomend to keep it default (max side)
 - after genAtlas exec, packer.atlas will be a canvas
+- save functions use lua io.open as default, if is necessary to change it, you can replace these functions
 
 | function | param | return | 
 |--|--|--|
@@ -8,7 +9,9 @@
 | genAtlas |  |  |
 | getRect | tag: **string** | x: **int**, y: **int**, w: **int**, h: **int** |
 | getQuad | tag: **string** | quad: **Quad** |
+| serialize |  | serial: **string** |
 | saveAtlas | path: **string** | error: **error** |
+| saveSerial | path: **string** | error: **error** |
 
 ### code example
 ```lua

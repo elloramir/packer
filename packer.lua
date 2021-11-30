@@ -138,6 +138,8 @@ function packer:getRect(tag)
 	return block.x, block.y, block.w, block.h
 end
 
+-- to save some memory/time processing, we don't need generate
+-- all quads at same time
 function packer:getQuad(tag)
 	local block = self:getBlock(tag)
 
@@ -153,15 +155,42 @@ function packer:getQuad(tag)
 	return block.quad
 end
 
-function packer:saveAtlas(dir)
-	local file, err = io.open(dir, "w")
+-- dirty serialization, but works ~fast~ fine ¯\_(ツ)_/¯
+function packer:serialize()
+	assert(self.atlas, "Generate an atlas before the serial")
+	local content = "return {\n"
 
-	if file then
+	for key, block in pairs(self.dictionary) do
+		content = content ..  '  ["' .. key .. '"]' .. " = {"
+		content = content ..  "x = " .. block.x .. ","
+		content = content .. " y = " .. block.y .. ","
+		content = content .. " w = " .. block.w .. ","
+		content = content .. " h = " .. block.h .. "},\n"
+	end
+
+	return content .. "}"
+end
+
+function packer:saveAtlas(dir)
+	local imageFile, err = io.open(dir, "w")
+
+	if imageFile then
 		local imgData = self.atlas:newImageData()
 		local fileData = imgData:encode("png")
 
-        file:write(fileData:getString())
-        file:close()
+        imageFile:write(fileData:getString())
+        imageFile:close()
+    end
+
+    return err
+end
+
+function packer:saveSerial(dir)
+	local serialFile, err = io.open(dir, "w")
+
+	if serialFile then
+        serialFile:write(self:serialize())
+        serialFile:close()
     end
 
     return err
