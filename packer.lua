@@ -170,7 +170,7 @@ function packer:serialize()
 end
 
 function packer:saveAtlas(dir)
-	local imageFile, err = io.open(dir, "w")
+	local imageFile, err = io.open(dir, "wb")
 
 	if imageFile then
 		local imgData = self.atlas:newImageData()
